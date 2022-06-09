@@ -46,7 +46,7 @@ mas:
     type: distribution
     provisioningProfile: embedded.provisionprofile
     #type: development
-    #provisioningProfile: development.provisionprofile
+    provisioningProfile: development.provisionprofile
 
 win:
     artifactName: ${name}-${version}-portable-${os}-${arch}.${ext}

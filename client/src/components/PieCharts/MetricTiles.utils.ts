@@ -31,6 +31,12 @@ export const getOnlineTime = (items, visibleTimerange) => {
     const onlineItems = items.filter(item => item.app === 'ONLINE');
     return onlineItems.reduce(sumApp(visibleTimerange), 0);
 };
+
+export const getNewOnlineTime = (items, visibleTimerange) => {
+    const onlineItems = items.filter(item => item.app === 'ONLINE');
+    return items.reduce(sumApp(visibleTimerange), 0);
+};
+
 export const getLastOnlineTime = (items, visibleTimerange) => {
     const onlineItems = items.filter(item => item.app === 'ONLINE');
     if (onlineItems.length > 1) {

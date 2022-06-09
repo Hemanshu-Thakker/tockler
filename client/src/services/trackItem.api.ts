@@ -17,7 +17,7 @@ async function findAllDayItems(from: moment.Moment, to: moment.Moment, taskName:
 
 export async function findAllDayItemsForEveryTrack(from: moment.Moment, to: moment.Moment) {
     // TODO, query all at async
-    const appItems: ITrackItem[] = await findAllDayItems(from, to, TrackItemType.AppTrackItem);
+    const appItems: ITrackItem[] = await findAllDayItems(from, to, 'AppTrackItem');
 
     const statusItems: ITrackItem[] = await findAllDayItems(from, to, TrackItemType.StatusTrackItem);
     const logItems: ITrackItem[] = await findAllDayItems(from, to, TrackItemType.LogTrackItem);

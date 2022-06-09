@@ -1,5 +1,13 @@
 import { Logger } from '../logger';
 
+declare global {
+    interface Window {
+        electronBridge:any;
+    }
+}
+
+console.log(window.electronBridge.onIpc());
+
 const { electronBridge } = window as any;
 const { invokeIpc, sendIpc, onIpc, removeListenerIpc } = electronBridge;
 

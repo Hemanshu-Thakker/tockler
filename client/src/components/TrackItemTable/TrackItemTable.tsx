@@ -8,6 +8,7 @@ import { useStoreState } from '../../store/easyPeasy';
 import { ItemsTable } from './ItemsTable';
 
 export const TrackItemTable = ({ type, resetButtonsRef }) => {
+    // {app, status, log} -> Object which stores timeItems
     const timeItems = useStoreState(state => state.timeItems);
     const visibleTimerange = useStoreState(state => state.visibleTimerange);
 
