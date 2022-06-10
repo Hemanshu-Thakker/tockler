@@ -11,19 +11,3 @@ export const exeCodingAppApi = async(table:string) => {
     });
     return api_result;
 }
-
-export function exeCodingBrowserApi() {
-    return [];
-}
-
-export function exeBrowserApi() {
-    return [];
-}
-
-export function exeMeetingApi() {
-    return [];
-}
-
-export function exeColabApi() {
-    return [];
-}

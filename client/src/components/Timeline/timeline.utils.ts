@@ -2,9 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { convertDate } from '../../constants';
 import { TrackItemType } from '../../enum/TrackItemType';
-import { Logger } from '../../logger';
-import { exeCodingAppApi } from '../../services/airtable';
-import { getBrowserArr, getCodingArr, getCodingBrowserArr, getColabArr, getMeetingArr, updateBrowserArr, updateCodingArr, updateCodingBrowserArr } from '../../store/subStore';
+import { getBrowserArr, getCodingArr, getCodingBrowserArr, getColabArr, getMeetingArr } from '../../store/subStore';
 
 export const filterItems = (timeItems, visibleTimerange) =>
     timeItems.filter((item) => {
