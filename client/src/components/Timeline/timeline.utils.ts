@@ -1,13 +1,10 @@
 import _ from 'lodash';
 import moment from 'moment';
-import { useState } from 'react';
 import { convertDate } from '../../constants';
 import { TrackItemType } from '../../enum/TrackItemType';
 import { Logger } from '../../logger';
 import { exeCodingAppApi } from '../../services/airtable';
-
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyqAakV032CP1G9D'}).base('appRMFVtMJWPbbVVz');
+import { getBrowserArr, getCodingArr, getCodingBrowserArr, getColabArr, getMeetingArr, updateBrowserArr, updateCodingArr, updateCodingBrowserArr } from '../../store/subStore';
 
 export const filterItems = (timeItems, visibleTimerange) =>
     timeItems.filter((item) => {
@@ -19,38 +16,24 @@ export const filterItems = (timeItems, visibleTimerange) =>
     });
 
 export const filterCodingBucket = (timeItems, visibleTimerange) => {
-    // coding_app_arr returns a promise 
-    let coding_app_arr = exeCodingAppApi();
-    console.log('Exe1')
-    Logger.debug("Test Log Prom")
-    Logger.debug(coding_app_arr)
-    console.log('Exe2')
-    let coder_arr:any = []
-    coding_app_arr.then(resp => {
-        console.log('Exe3')
-        coder_arr = resp
-    })
-    
     return timeItems.filter((item: { beginDate: Date; endDate: Date; app: string; }) => {
         const itemBegin = convertDate(item.beginDate);
         const itemEnd = convertDate(item.endDate);
         const [visBegin, visEnd] = visibleTimerange;
 
-        console.log('Exe4')
-
-        return ((itemBegin.isBetween(visBegin, visEnd) || itemEnd.isBetween(visBegin, visEnd)) && codingBucketBoolValue(item, coder_arr));
+        return ((itemBegin.isBetween(visBegin, visEnd) || itemEnd.isBetween(visBegin, visEnd)) && codingBucketBoolValue(item));
     });
 }
 
-const codingBucketBoolValue = (item,coding_app_keywords) => {
-    console.log("eeeeexxxxxeeeee");
-    console.log(coding_app_keywords);
+const codingBucketBoolValue = (item) => {
+
     let coding_bool = false
     const app_name = item.app.toLowerCase()
     const title = item.title.toLowerCase()
     
-    let browser_coding_keywords = ["stack overflow","github","cloud9","codeanywhere","codenvy","Repl","Koding","Orion","codetasty","sourcelair","coder","codesandbox","codepen","shiftedit","gitpod","visual studio online","stackhive","browxy","codetogether","codeincloud"]
-    let browsers = ["google chrome", "microsoft edge", "brave", "firefox", "safari"]
+    let coding_app_keywords:string[] = getCodingArr()
+    let browser_coding_keywords:string[] = getCodingBrowserArr()
+    let browsers:string[] = getBrowserArr()
     coding_app_keywords.forEach(element => {
         coding_bool = coding_bool || app_name.includes(element);
     })
@@ -72,24 +55,12 @@ export const filterColabBucket = (timeItems, visibleTimerange) =>
     });
 
 const colabBucketBoolValue = (item) => {
-    
-    let coding_app_arr = exeCodingAppApi();
-    console.log('Exe1')
-    Logger.debug("Test Log Prom")
-    Logger.debug(coding_app_arr)
-    console.log('Exe2')
-    let coder_arr:any = []
-    coding_app_arr.then(resp => {
-        console.log('Exe3')
-        coder_arr = resp
-    })
-
-    const colab_doc_tools = ["confluence","quip","sharepoint","zoho wiki","base camp","book stack","gitbook","papyrs", "slack"]
+    let colab_doc_tools = getColabArr()
     let app_condition = false
     colab_doc_tools.forEach(element => {
         app_condition = app_condition || item.title.toLowerCase().includes(element) || item.app.toLowerCase().includes(element)
     })
-    return (app_condition && !(codingBucketBoolValue(item,coder_arr)));
+    return (app_condition && !(codingBucketBoolValue(item)));
 }
 
 export const filterMeetingBucket = (timeItems, visibleTimerange) =>
@@ -102,7 +73,7 @@ export const filterMeetingBucket = (timeItems, visibleTimerange) =>
     });
 
 const meetingBucketBoolValue = (item) => {
-    const meeting_keyword = ["google meet","meet -","zoom"]
+    const meeting_keyword = getMeetingArr()
     let app_condition = false
     meeting_keyword.forEach(element => {
         app_condition = app_condition || item.title.toLowerCase().includes(element) || item.app.toLowerCase().includes(element)

@@ -1,15 +1,16 @@
 // tslint:disable-next-line: no-submodule-imports
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { TrackItemType } from '../../enum/TrackItemType';
 import { filterItems, filterCodingBucket, filterColabBucket, filterMeetingBucket, filterIdleBucket } from '../Timeline/timeline.utils';
 import { checkIfOneDay } from '../../timeline.util';
 import { useStoreState } from '../../store/easyPeasy';
+import { updateCodingArr,updateCodingBrowserArr,updateBrowserArr,updateColabArr,updateMeetingArr } from '../../store/subStore';
 import { ItemsTable } from './ItemsTable';
 import { Logger } from '../../logger';
 import { getOnlineTime, getNewOnlineTime, getTasksTime } from '../PieCharts/MetricTiles.utils';
 import { secondsToClock } from '../../time.util';
-import { exeCodingAppApi,exeCodingBrowserApi,exeBrowserApi,exeMeetingApi,exeColabApi } from '../../services/airtable';
+import { exeCodingAppApi } from '../../services/airtable';
 
 export const TrackItemBucket = () => {
 
@@ -17,6 +18,24 @@ export const TrackItemBucket = () => {
     const timeItems = useStoreState(state => state.timeItems);
     const visibleTimerange = useStoreState(state => state.visibleTimerange);
     const timerange = useStoreState(state => state.timerange);
+
+    useEffect(() => {
+        exeCodingAppApi('Coding app').then(resp => {
+            updateCodingArr(resp)
+        })
+        exeCodingAppApi('coding browser').then(resp => {
+            updateCodingBrowserArr(resp)
+        })
+        exeCodingAppApi('browsers').then(resp => {
+            updateBrowserArr(resp)
+        })
+        exeCodingAppApi('colab/doc').then(resp => {
+            updateColabArr(resp)
+        })
+        exeCodingAppApi('meeting').then(resp => {
+            updateMeetingArr(resp)
+        })
+    })
 
     const c_data = useMemo(
         () =>
