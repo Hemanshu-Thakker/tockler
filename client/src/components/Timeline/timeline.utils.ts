@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { convertDate } from '../../constants';
 import { TrackItemType } from '../../enum/TrackItemType';
-import { getBrowserArr, getCodingArr, getCodingBrowserArr, getColabArr, getMeetingArr } from '../../store/subStore';
+import { subStore } from '../../store/subStore';
 
 export const filterItems = (timeItems, visibleTimerange) =>
     timeItems.filter((item) => {
@@ -29,9 +29,9 @@ const codingBucketBoolValue = (item) => {
     const app_name = item.app.toLowerCase()
     const title = item.title.toLowerCase()
     
-    let coding_app_keywords:string[] = getCodingArr()
-    let browser_coding_keywords:string[] = getCodingBrowserArr()
-    let browsers:string[] = getBrowserArr()
+    let coding_app_keywords:String[] = subStore.getState().codingKeys
+    let browser_coding_keywords:String[] = subStore.getState().codingbrowsers
+    let browsers:String[] = subStore.getState().browsers
     coding_app_keywords.forEach(element => {
         coding_bool = coding_bool || app_name.includes(element);
     })
@@ -53,7 +53,7 @@ export const filterColabBucket = (timeItems, visibleTimerange) =>
     });
 
 const colabBucketBoolValue = (item) => {
-    let colab_doc_tools = getColabArr()
+    let colab_doc_tools = subStore.getState().colabs
     let app_condition = false
     colab_doc_tools.forEach(element => {
         app_condition = app_condition || item.title.toLowerCase().includes(element) || item.app.toLowerCase().includes(element)
@@ -71,7 +71,7 @@ export const filterMeetingBucket = (timeItems, visibleTimerange) =>
     });
 
 const meetingBucketBoolValue = (item) => {
-    const meeting_keyword = getMeetingArr()
+    const meeting_keyword = subStore.getState().meetings
     let app_condition = false
     meeting_keyword.forEach(element => {
         app_condition = app_condition || item.title.toLowerCase().includes(element) || item.app.toLowerCase().includes(element)

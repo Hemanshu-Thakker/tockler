@@ -9,6 +9,7 @@ import { NewLogButton } from '../components/Timeline/NewLogButton';
 import { Search } from '../components/Timeline/Search';
 import { Timeline } from '../components/Timeline/Timeline';
 import { VisibleRange } from '../components/Timeline/VisibleRange';
+import { TrackItemBucket } from '../components/TrackItemTable/TrackItemBucket';
 import { TrackItemTabs } from '../components/TrackItemTable/TrackItemTabs';
 import { useInterval } from '../hooks/intervalHook';
 import { useStoreActions } from '../store/easyPeasy';
@@ -40,6 +41,7 @@ export function TimelinePage() {
                             <NewLogButton />
                         </Box>
                     </Flex>
+                    <TrackItemBucket />
                     <Flex>
                         <Stack py={4} my={4} pr={4} pl={1}>
                             <ItemLabel>Task</ItemLabel>

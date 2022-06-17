@@ -32,7 +32,7 @@ export const TrackItemTabs = () => {
                     />
                 </TabPanel>
             </TabPanels>
-            <TrackItemBucket />
+            {/* <TrackItemBucket /> */}
         </Tabs>
     );
 };

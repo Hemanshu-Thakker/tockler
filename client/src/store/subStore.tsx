@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { Action, action, useStoreState } from 'easy-peasy';
+import { createStore } from 'easy-peasy';
 
 let codingKey = []
 let codingbrowser = []
@@ -6,42 +7,48 @@ let browser = []
 let meeting = []
 let colab = []
 
-export const getCodingArr = () => {
-    return codingKey
+export interface KeywordStore{
+    codingKeys: String[];
+    setCodingKeys: Action<KeywordStore,any>;
+
+    codingbrowsers: String[];
+    setCodingBrowsers: Action<KeywordStore,String[]>;
+
+    browsers: String[];
+    setBrowsers: Action<KeywordStore,String[]>;
+
+    meetings: String[];
+    setMeetings: Action<KeywordStore,String[]>;
+
+    colabs: String[];
+    setColabs: Action<KeywordStore,String[]>;
 }
 
-export const updateCodingArr = (updated_arr) => {
-    codingKey = updated_arr
-}
+const subStore = createStore<KeywordStore>({
+    codingKeys: [],
+    setCodingKeys: action((state,payload) => {
+        state.codingKeys = payload
+    }),
 
-export const getCodingBrowserArr = () => {
-    return codingbrowser
-}
+    codingbrowsers: [],
+    setCodingBrowsers: action((state,payload) => {
+        state.codingbrowsers = payload
+    }),
 
-export const updateCodingBrowserArr = (updated_arr) => {
-    codingbrowser = updated_arr
-}
+    browsers: [],
+    setBrowsers: action((state,payload) => {
+        state.browsers = payload
+    }),
 
-export const getBrowserArr = () => {
-    return browser
-}
+    meetings: [],
+    setMeetings: action((state,payload) => {
+        state.meetings = payload
+    }),
 
-export const updateBrowserArr = (updated_arr) => {
-    browser = updated_arr
-}
+    colabs: [],
+    setColabs: action((state,payload) => {
+        state.colabs = payload
+    })
+})
 
-export const getColabArr = () => {
-    return colab
-}
-
-export const updateColabArr = (updated_arr) => {
-    colab = updated_arr
-}
-
-export const getMeetingArr = () => {
-    return meeting
-}
-
-export const updateMeetingArr = (updated_arr) => {
-    meeting = updated_arr
-}
+export { subStore };

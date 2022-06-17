@@ -54,6 +54,7 @@ export interface StoreModel {
 
     bgSync: Thunk<StoreModel, Moment>;
     bgSyncInterval: Thunk<StoreModel>;
+
 }
 
 const mainStore = createStore<StoreModel>({

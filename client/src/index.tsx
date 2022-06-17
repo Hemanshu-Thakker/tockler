@@ -5,6 +5,7 @@ import { MainRouter } from './MainRouter';
 import { StoreProvider } from 'easy-peasy';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { mainStore } from './store/mainStore';
+import { subStore } from './store/subStore';
 import '@fontsource/inter';
 import { theme } from './theme/theme';
 import ReactGA from 'react-ga';

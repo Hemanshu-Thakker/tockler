@@ -1,7 +1,7 @@
 import { createTypedHooks } from 'easy-peasy';
-import { StoreModel } from './mainStore';
+import { KeywordStore } from './subStore';
 
-const typedHooks = createTypedHooks<StoreModel>();
+const typedHooks = createTypedHooks<KeywordStore>();
 
 export const useStoreActions = typedHooks.useStoreActions;
 export const useStoreDispatch = typedHooks.useStoreDispatch;
