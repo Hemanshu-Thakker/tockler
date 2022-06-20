@@ -1,7 +1,6 @@
-import { Logger } from '../logger';
-
+require('dotenv').config()
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'keyqAakV032CP1G9D'}).base('appRMFVtMJWPbbVVz');
+var base = new Airtable({apiKey: process.env.REACT_APP_API_KEY}).base(process.env.BASE);
 
 export const exeCodingAppApi = async(table:string) => {
     var api_result:string[] = []
