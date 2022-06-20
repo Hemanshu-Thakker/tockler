@@ -20,10 +20,11 @@ export const Header = ({ children, brandLinkProps }) => (
             <Link {...brandLinkProps} _hover={{ textDecoration: 'none' }}>
                 <Flex>
                     <Center pr={3}>
-                        <TocklerLogo boxSize="28px" />
+                        {/* <TocklerLogo boxSize="28px" /> */}
+                        <img src="https://www.ajackus.com/images/logo-icon-blue.svg" alt="logo"></img>
                     </Center>
                     <Box pt="3px">
-                        <TocklerLogoText />
+                        {/* <TocklerLogoText /> */}
                     </Box>
                 </Flex>
             </Link>
