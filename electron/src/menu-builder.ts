@@ -29,6 +29,7 @@ export default class MenuBuilder {
             {
                 label: 'View',
                 submenu: [
+                    { role: 'toggledevtools' },
                     { role: 'resetzoom' },
                     { role: 'zoomin' },
                     { role: 'zoomout' },
