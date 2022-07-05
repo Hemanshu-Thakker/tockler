@@ -1,10 +1,73 @@
 {
   "name": "tockler",
   "description": "Automatically track applications usage and working time",
-  "author": "Maigo Erit <maigo.erit@gmail.com>",
+  "author": "Maigo Erit <maigo.erit@gmail.com>, Hemanshu",
   "license": "GPL-2.0",
+  "version": "0.0.1",
+  "main": "electron/dist/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:MayGo/tockler.git"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.64",
+    "@electron-forge/maker-deb": "^6.0.0-beta.64",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.64",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.64",
+    "@electron-forge/maker-zip": "^6.0.0-beta.64",
+    "electron": "19.0.4"
+  },
+  "build": {
+    "appId": "com.yacnique.app",
+    "productName": "Tacnique - Ajackus",
+    "target": "NSIS",
+    "directory": {
+      "output": "/"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "dist": "electron-builder"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "asar": true
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "tockler"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "name": "tockler"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

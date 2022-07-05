@@ -67,7 +67,3 @@ script:
     - npm run prepare_client
     - travis_wait ./scripts/travis-release.sh
     - cd ..
-
-branches:
-    only:
-        - master
